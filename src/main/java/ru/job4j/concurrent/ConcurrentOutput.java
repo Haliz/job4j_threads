@@ -1,4 +1,9 @@
 package ru.job4j.concurrent;
+/**
+ * Данный клас показывает запуск и работу разных потоков.
+ * При многократном запуске программы потоки выводят информацию в
+ * произвольном порядке.
+ */
 
 public class ConcurrentOutput {
     public static void main(String[] args) {
