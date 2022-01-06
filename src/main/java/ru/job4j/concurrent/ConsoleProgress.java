@@ -6,7 +6,7 @@ public class ConsoleProgress implements Runnable {
         char[] symbol = {'|', '/', '—', '\\'};
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < symbol.length; i++) {
                     System.out.print("\r load: " + symbol[i]);
                     Thread.sleep(500);
                 }
