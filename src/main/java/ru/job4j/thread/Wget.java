@@ -16,21 +16,21 @@ public class Wget implements Runnable {
 
     @Override
     public void run() {
+        String[] split = url.split("/");
+        String dest = "new_" + split[split.length - 1];
         try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-             FileOutputStream fileOutputStream = new FileOutputStream("pom_tmp.xml")) {
+             FileOutputStream fileOutputStream = new FileOutputStream(dest)) {
             byte[] dataBuffer = new byte[speed];
             int bytesRead;
             long startTime = System.currentTimeMillis();
             while ((bytesRead = in.read(dataBuffer, 0, speed)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
-                if (bytesRead >= speed) {
-                    long stopTime = System.currentTimeMillis();
-                    long time = stopTime - startTime;
-                    if (time < 1000) {
-                        Thread.sleep((1000 - time));
-                        startTime = System.currentTimeMillis();
-                    }
+                long stopTime = System.currentTimeMillis();
+                long time = stopTime - startTime;
+                if (bytesRead >= speed && time < 1000) {
+                    Thread.sleep((1000 - time));
                 }
+                startTime = System.currentTimeMillis();
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -38,10 +38,17 @@ public class Wget implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        validate(args);
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
         Thread wget = new Thread(new Wget(url, speed));
         wget.start();
         wget.join();
+    }
+
+    public static void validate(String[] args) {
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Incorrect arguments!");
+        }
     }
 }
