@@ -10,12 +10,10 @@ public final class Node<T> {
     }
 
     public Node<T> getNext() {
-        Node<T> copyNext = next;
-        return copyNext;
+        return next;
     }
 
     public T getValue() {
-        T copyValue = value;
-        return copyValue;
+        return value;
     }
 }
