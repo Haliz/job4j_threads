@@ -25,7 +25,7 @@ public final class ParseFile {
         return output;
     }
 
-    public synchronized String getContentWithUnicode() {
+    public String getContentWithUnicode() {
         return getContent(data -> true);
     }
 
