@@ -2,7 +2,7 @@ package ru.job4j.io;
 
 import java.io.*;
 
-public class SafeFile {
+public final class SafeFile {
     private final File file;
 
     public SafeFile(File file) {
