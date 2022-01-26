@@ -10,7 +10,7 @@ public final class ParseFile {
         this.file = file;
     }
 
-    public String getContent(Predicate<Integer> predicate) {
+    public synchronized String getContent(Predicate<Integer> predicate) {
         String output = "";
         try (BufferedInputStream reader = new BufferedInputStream(new FileInputStream(file))) {
             int data;
@@ -25,7 +25,7 @@ public final class ParseFile {
         return output;
     }
 
-    public String getContentWithUnicode() {
+    public synchronized String getContentWithUnicode() {
         return getContent(data -> true);
     }
 
