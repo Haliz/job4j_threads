@@ -30,7 +30,6 @@ public class UserStoreTest {
         UserStore userStore = new UserStore();
         userStore.add(user);
         assertThat(userStore.update(user2), is(true));
-        assertThat(user.getAmount(), is(200));
     }
 
     @Test
