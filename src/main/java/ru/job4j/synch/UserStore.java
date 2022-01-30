@@ -23,10 +23,15 @@ public class UserStore {
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
-        if (users.containsKey(fromId) && users.containsKey(toId)) {
-            users.get(fromId).setAmount(users.get(fromId).getAmount() - amount);
-            users.get(toId).setAmount(users.get(toId).getAmount() + amount);
-            return true;
+        User fromUser, toUser;
+        fromUser = users.get(fromId);
+        toUser = users.get(toId);
+        if (fromUser != null && toUser != null) {
+            if (fromUser.getAmount() >= amount) {
+                fromUser.setAmount(fromUser.getAmount() - amount);
+                toUser.setAmount(toUser.getAmount() + amount);
+                return true;
+            }
         }
         return false;
     }
