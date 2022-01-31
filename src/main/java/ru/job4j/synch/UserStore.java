@@ -26,12 +26,10 @@ public class UserStore {
         User fromUser, toUser;
         fromUser = users.get(fromId);
         toUser = users.get(toId);
-        if (fromUser != null && toUser != null) {
-            if (fromUser.getAmount() >= amount) {
+        if (fromUser != null && toUser != null && fromUser.getAmount() >= amount) {
                 fromUser.setAmount(fromUser.getAmount() - amount);
                 toUser.setAmount(toUser.getAmount() + amount);
                 return true;
-            }
         }
         return false;
     }
