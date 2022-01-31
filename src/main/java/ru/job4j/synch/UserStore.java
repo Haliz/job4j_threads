@@ -23,15 +23,12 @@ public class UserStore {
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
-        User fromUser, toUser;
-        fromUser = users.get(fromId);
-        toUser = users.get(toId);
-        if (fromUser != null && toUser != null) {
-            if (fromUser.getAmount() >= amount) {
-                fromUser.setAmount(fromUser.getAmount() - amount);
-                toUser.setAmount(toUser.getAmount() + amount);
-                return true;
-            }
+        User fromUser = users.get(fromId);
+        User toUser = users.get(toId);
+        if (fromUser != null && toUser != null && fromUser.getAmount() >= amount) {
+            fromUser.setAmount(fromUser.getAmount() - amount);
+            toUser.setAmount(toUser.getAmount() + amount);
+            return true;
         }
         return false;
     }
