@@ -16,12 +16,20 @@ public class SimpleBlockingQueueTest {
         List<Integer> list = new ArrayList<>();
         Thread offerTread = new Thread(() -> {
             for (int i = 1; i <= 10; i++) {
-                queue.offer(i);
+                try {
+                    queue.offer(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         Thread poolTread = new Thread(() -> {
             for (int i = 1; i <= 10; i++) {
-                list.add(queue.poll());
+                try {
+                    list.add(queue.poll());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         offerTread.start();
