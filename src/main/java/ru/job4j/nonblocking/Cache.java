@@ -12,8 +12,7 @@ public class Cache {
 
     public boolean update(Base model) {
         return memory.computeIfPresent(model.getId(), (key, value) -> {
-            Base stored = memory.get(model.getId());
-            if (stored.getVersion() != model.getVersion()) {
+            if (value.getVersion() != model.getVersion()) {
                 throw new OptimisticException("Versions are not equal");
             }
             Base inputModel = new Base(model.getId(), model.getVersion() + 1);
@@ -27,6 +26,6 @@ public class Cache {
     }
 
     public Map<Integer, Base> getMemory() {
-        return memory;
+        return Map.copyOf(memory);
     }
 }
